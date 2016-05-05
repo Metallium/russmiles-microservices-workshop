@@ -5,6 +5,6 @@ namespace WriteStack
 {
 	public class Person
 	{
-		public PersonId Id { get; } = new PersonId(Guid.NewGuid());
+		public PersonId Id { get; set; } = new PersonId(Guid.NewGuid());
 	}
 }

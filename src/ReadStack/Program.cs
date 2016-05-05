@@ -5,16 +5,31 @@ using Consul;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using ReadStack.Controllers;
 
-namespace WriteStack
+namespace ReadStack
 {
 	class Program
 	{
+		public static IDisposable Connect(Uri bindUri) => WebApp.Start(bindUri.AbsoluteUri, app =>
+		{
+			var configuration = new HttpConfiguration();
+			configuration.MapHttpAttributeRoutes();
+			configuration.Formatters.Remove(configuration.Formatters.XmlFormatter);
+			configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+			configuration.Routes.MapHttpRoute("root", "{controller}/{action}", new { controller = "UserStories", action = "List" });
+
+			app.UseWebApi(configuration);
+		});
+
 		static void Main(string[] args)
 		{
-			var serviceId = "pepelazzo";
-			var serviceType = "WriteStack";
-			var bindUri = new Uri("http://127.0.0.1:20001");
+			Console.WriteLine(UserStoriesController.Model.Position);
+
+			var serviceId = "pazakko";
+			var serviceType = "ReadStack";
+			var bindUri = new Uri("http://127.0.0.1:20002");
 
 			using (Connect(bindUri))
 			{
@@ -23,19 +38,6 @@ namespace WriteStack
 				Console.ReadKey();
 			}
 		}
-
-		public static IDisposable Connect(Uri bindUri) => WebApp.Start(bindUri.AbsoluteUri, app =>
-		{
-			var configuration = new HttpConfiguration();
-			configuration.MapHttpAttributeRoutes();
-			configuration.Formatters.Remove(configuration.Formatters.XmlFormatter);
-			configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-			configuration.Routes.MapHttpRoute("root", "{controller}/{action}", new {controller = "Home", action = "AssignPerson"});
-
-			app.UseWebApi(configuration);
-		});
-
 		public static async Task RegisterInConsul(Uri bindUri, string serviceId, string serviceType)
 		{
 			using (var client = new ConsulClient())

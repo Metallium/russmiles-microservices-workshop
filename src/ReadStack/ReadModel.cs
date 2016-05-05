@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
-using EventStore.ClientAPI;
 using ReadStack.Messages;
 
 namespace ReadStack
@@ -58,6 +58,11 @@ namespace ReadStack
 			UserStoryViewDto result;
 			_userStories.TryGetValue(streamName, out result);
 			return result;
+		}
+
+		public List<UserStoryViewDto> GetStories()
+		{
+			return _userStories.Values.ToList();
 		}
 	}
 }
