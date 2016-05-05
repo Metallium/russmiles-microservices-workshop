@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WriteStack", "WriteStack\Wr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTests", "CommonTests\CommonTests.csproj", "{6ADC128A-A333-4E9C-B44B-F67B44E5D39F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventStore", "EventStore\EventStore.csproj", "{83985EE8-F7DA-46C2-838E-BE508E3FABA6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadStack", "ReadStack\ReadStack.csproj", "{75803557-9D1D-4735-85BB-2242DF0C086B}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{6ADC128A-A333-4E9C-B44B-F67B44E5D39F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ADC128A-A333-4E9C-B44B-F67B44E5D39F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ADC128A-A333-4E9C-B44B-F67B44E5D39F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83985EE8-F7DA-46C2-838E-BE508E3FABA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83985EE8-F7DA-46C2-838E-BE508E3FABA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83985EE8-F7DA-46C2-838E-BE508E3FABA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83985EE8-F7DA-46C2-838E-BE508E3FABA6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75803557-9D1D-4735-85BB-2242DF0C086B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75803557-9D1D-4735-85BB-2242DF0C086B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75803557-9D1D-4735-85BB-2242DF0C086B}.Release|Any CPU.ActiveCfg = Release|Any CPU

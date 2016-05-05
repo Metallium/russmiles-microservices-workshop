@@ -52,15 +52,12 @@
     <Compile Include="UserStoryEventsTests.cs" />
     <Compile Include="UserStoryStateTests.cs" />
     <Compile Include="ReadModelTests.cs" />
+    <Compile Include="Waiter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventStore\EventStore.csproj">
-      <Project>{83985EE8-F7DA-46C2-838E-BE508E3FABA6}</Project>
-      <Name>EventStore</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ReadStack\ReadStack.csproj">
       <Project>{75803557-9D1D-4735-85BB-2242DF0C086B}</Project>
       <Name>ReadStack</Name>

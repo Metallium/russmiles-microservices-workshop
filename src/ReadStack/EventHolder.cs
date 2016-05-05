@@ -1,4 +1,4 @@
-﻿namespace EventStore
+﻿namespace ReadStack
 {
 	public class EventHolder
 	{
