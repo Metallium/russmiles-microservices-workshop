@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -8,7 +7,7 @@ using Consul;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json.Serialization;
 using Owin;
-using CircuitBreaker = CircuitBreaker.Net.CircuitBreaker;
+using Prometheus;
 
 namespace WebStack
 {
@@ -26,11 +25,16 @@ namespace WebStack
 
 		static void Main(string[] args)
 		{
+			var metricServer = new MetricServer(hostname:"localhost", port: 1234);
+			metricServer.Start();
+
 			var serviceId = "kc";
 			var serviceType = "WebStack";
 			var bindUri = new Uri("http://127.0.0.1:20000");
 
 			Run(bindUri, serviceType, serviceId).Wait();
+
+			metricServer.Stop();
 		}
 
 		private static async Task Run(Uri bindUri, string serviceType, string serviceId)
@@ -44,13 +48,15 @@ namespace WebStack
 				{
 					using (var consulClient = new ConsulClient())
 					{
-						var breaker = new global::CircuitBreaker.Net.CircuitBreaker(TaskScheduler.Current, 3, TimeSpan.FromSeconds(3),
+						var breaker = new CircuitBreaker.Net.CircuitBreaker(TaskScheduler.Current, 3, TimeSpan.FromSeconds(3),
 							TimeSpan.FromSeconds(10));
 						await breaker.ExecuteAsync(async () =>
 						{
 							await AssignPersonToUserStory(consulClient);
 							await RetrieveUserStories(consulClient);
 						});
+						Counters.Requests.Inc();
+						Counters.Requests.Collect();
 					}
 					input = Console.ReadLine();
 				}
