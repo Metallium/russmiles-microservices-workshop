@@ -8,6 +8,7 @@ using Consul;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using CircuitBreaker = CircuitBreaker.Net.CircuitBreaker;
 
 namespace WebStack
 {
@@ -43,8 +44,13 @@ namespace WebStack
 				{
 					using (var consulClient = new ConsulClient())
 					{
-						await AssignPersonToUserStory(consulClient);
-						await RetrieveUserStories(consulClient);
+						var breaker = new global::CircuitBreaker.Net.CircuitBreaker(TaskScheduler.Current, 3, TimeSpan.FromSeconds(3),
+							TimeSpan.FromSeconds(10));
+						await breaker.ExecuteAsync(async () =>
+						{
+							await AssignPersonToUserStory(consulClient);
+							await RetrieveUserStories(consulClient);
+						});
 					}
 					input = Console.ReadLine();
 				}
