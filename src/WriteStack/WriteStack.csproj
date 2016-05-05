@@ -54,8 +54,6 @@
     <Compile Include="AssignPersonCommand.cs" />
     <Compile Include="EventHolder.cs" />
     <Compile Include="Messages\EventSederializer.cs" />
-    <Compile Include="Gateway.cs" />
-    <Compile Include="InMemoryRepository.cs" />
     <Compile Include="Messages\IEvent.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Messages\PersonAssignedEvent.cs" />

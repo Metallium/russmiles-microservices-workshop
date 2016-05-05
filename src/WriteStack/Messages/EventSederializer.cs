@@ -1,6 +1,6 @@
 ﻿using System.IO;
-using EventStore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace WriteStack.Messages
 {
@@ -8,13 +8,18 @@ namespace WriteStack.Messages
 	{
 		public static EventHolder Serialize(string streamName, IEvent @event)
 		{
-			var body = JsonConvert.SerializeObject(@event);
+			var body = JsonConvert.SerializeObject(
+				@event,
+				new JsonSerializerSettings
+				{
+					ContractResolver = new CamelCasePropertyNamesContractResolver()
+				});
 			var eventType = @event.GetType().Name;
 			return new EventHolder
 			{
 				StreamName = streamName,
 				EventType = eventType,
-				Body = body,
+				Body = body
 			};
 		}
 
@@ -29,6 +34,6 @@ namespace WriteStack.Messages
 				return JsonConvert.DeserializeObject<StoryBirthdayEvent>(eventHolder.Body);
 			}
 			throw new InvalidDataException("Unknown eventType: " + eventHolder.EventType);
-		} 
+		}
 	}
 }

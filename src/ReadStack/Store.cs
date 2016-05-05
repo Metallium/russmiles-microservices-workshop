@@ -25,7 +25,7 @@ namespace ReadStack
 						{
 							StreamName = resolvedEvent.OriginalEvent.EventStreamId,
 							EventType = resolvedEvent.OriginalEvent.EventType,
-							Body = System.Text.Encoding.Unicode.GetString(resolvedEvent.OriginalEvent.Data),
+							Body = System.Text.Encoding.UTF8.GetString(resolvedEvent.OriginalEvent.Data),
 						});
 					},
 					OnSubscribed,

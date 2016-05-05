@@ -23,7 +23,7 @@ namespace WriteStack
 						Guid.NewGuid(),
 						eventHolder.EventType,
 						true,
-						System.Text.Encoding.Unicode.GetBytes(eventHolder.Body),
+						System.Text.Encoding.UTF8.GetBytes(eventHolder.Body),
 						null
 						)).Result;
 				;
